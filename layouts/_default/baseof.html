@@ -15,14 +15,19 @@
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <header>
-    <a href="/">{{ .Site.Title }}</a>
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer>
-    <p>© {{ now.Year }} Thomas Buß</p>
-  </footer>
+    <header>
+    <a href="/">{{ .Site.Params.logo | default .Site.Title }}</a>
+    <nav>
+        <a href="/blog/">Blog</a>
+        <a href="https://thomasbuss.net" target="_blank">thomasbuss.net</a>
+        <button id="theme-toggle" aria-label="Theme wechseln">🌙</button>
+    </nav>
+    </header>
+    <main>
+        {{ block "main" . }}{{ end }}
+    </main>
+    <footer>
+        <p>© {{ now.Year }} Thomas Buß</p>
+    </footer>
 </body>
 </html>

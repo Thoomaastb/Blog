@@ -4,7 +4,7 @@ title: "Blog | Thomas Buß"
 enableRobotsTXT: true
 
 permalinks:
-  blog: "/blog/:slug/"
+  blog: "/:slug/"
 
 params:
   description: "Blog von Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web"

@@ -31,6 +31,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
             docker pull ghcr.io/thoomaastb/blog:latest
             docker stop bussonline-blog || true
             docker rm bussonline-blog || true

@@ -1,0 +1,9 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: sans-serif; max-width: 800px; margin: 0 auto; padding: 2rem 1rem; line-height: 1.6; }
+header { margin-bottom: 2rem; }
+header a { font-weight: bold; text-decoration: none; }
+h1 { margin-bottom: 1rem; }
+ul { list-style: none; }
+li { margin-bottom: 0.5rem; display: flex; gap: 1rem; }
+article time { color: #666; font-size: 0.9rem; display: block; margin-bottom: 1.5rem; }
+footer { margin-top: 3rem; color: #666; font-size: 0.9rem; }

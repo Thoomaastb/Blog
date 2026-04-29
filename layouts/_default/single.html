@@ -1,7 +1,27 @@
 {{ define "main" }}
-<article>
-  <h1>{{ .Title }}</h1>
-  <time>{{ .Date.Format "02.01.2006" }}</time>
-  {{ .Content }}
-</article>
+{{ with .Params.header }}
+<div class="post-hero" style="background-image: url('{{ . }}')">
+  <div class="post-hero-content">
+    <div class="post-hero-meta">{{ $.Date.Format "02.01.2006" }}{{ with $.Params.categories }} · {{ index . 0 }}{{ end }}</div>
+    <h1>{{ $.Title }}</h1>
+  </div>
+</div>
+{{ else }}
+<div class="post-header">
+  <div class="wrap">
+    <div class="post-meta">{{ .Date.Format "02.01.2006" }}{{ with .Params.categories }} · {{ index . 0 }}{{ end }}</div>
+    <h1>{{ .Title }}</h1>
+  </div>
+</div>
+{{ end }}
+<div class="wrap">
+  <div class="content">
+    {{ .Content }}
+  </div>
+  {{ with .Params.tags }}
+  <div class="tags">
+    {{ range . }}<a href="/tags/{{ . | urlize }}" class="tag">#{{ . }}</a>{{ end }}
+  </div>
+  {{ end }}
+</div>
 {{ end }}

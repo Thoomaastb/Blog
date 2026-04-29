@@ -3,82 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ .Title }} | {{ .Site.Title }}</title>
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <link rel="canonical" href="{{ .Permalink }}">
   <meta property="og:title" content="{{ .Title }}">
   <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
   <meta property="og:url" content="{{ .Permalink }}">
-  {{ with .Params.og_image }}
-  <meta property="og:image" content="{{ . | absURL }}">
-  {{ end }}
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  {{ with .Params.og_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header>
-        <a href="/" class="logo">
-            <img src="https://thomasbuss.net/wp-content/uploads/2024/07/LogoText_farbig_private-scaled.webp"
-                alt="Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-            <span class="logo-fallback">Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web</span>
-        </a>
-        <nav id="main-nav">
-            {{ range .Site.Params.nav_categories }}
-            <a href="{{ .url }}">{{ .name }}</a>
-            {{ end }}
-            <button id="theme-toggle" aria-label="Theme wechseln">
-                <img id="theme-icon" src="/icons/moon.svg" alt="Dark Mode" width="18" height="18">
-            </button>
-        </nav>
-        <button id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
-            <img id="hamburger-icon" src="/icons/menu.svg" alt="Menü" width="20" height="20">
+  <header>
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <img src="https://thomasbuss.net/wp-content/uploads/2024/07/LogoText_farbig_private-scaled.webp"
+             alt="Thomas Buß"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="logo-fallback">Thomas Buß</span>
+      </a>
+      <nav id="main-nav">
+        {{ range .Site.Params.nav_categories }}
+        <a href="{{ .url }}">{{ .name }}</a>
+        {{ end }}
+        <button id="theme-toggle" aria-label="Theme wechseln">
+          <img id="theme-icon" src="/icons/moon.svg" alt="Theme" width="18" height="18">
         </button>
-    </header>
-    <main>
-        {{ block "main" . }}{{ end }}
-    </main>
-    <footer>
-        <p>© {{ now.Year }} Thomas Buß</p>
-    </footer>
+      </nav>
+      <button id="hamburger" aria-label="Menü" aria-expanded="false">
+        <img id="hamburger-icon" src="/icons/menu.svg" alt="Menü" width="20" height="20">
+      </button>
+    </div>
+  </header>
+
+  <main>{{ block "main" . }}{{ end }}</main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>© {{ now.Year }} Thomas Buß</span>
+      <span><a href="https://thomasbuss.net/impressum">Impressum</a> · <a href="https://thomasbuss.net/datenschutz">Datenschutz</a></span>
+    </div>
+  </footer>
+
+  <script>
+    const btn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('main-nav');
+
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const isDark = saved ? saved === 'dark' : prefersDark;
+    if (!isDark) root.setAttribute('data-theme', 'light');
+    document.getElementById('theme-icon').src = isDark ? '/icons/moon.svg' : '/icons/sun.svg';
+
+    btn.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') !== 'light';
+      root.setAttribute('data-theme', current ? 'light' : 'dark');
+      localStorage.setItem('theme', current ? 'light' : 'dark');
+      document.getElementById('theme-icon').src = current ? '/icons/sun.svg' : '/icons/moon.svg';
+    });
+
+    hamburger.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+      document.getElementById('hamburger-icon').src = open ? '/icons/x.svg' : '/icons/menu.svg';
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+        nav.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+        document.getElementById('hamburger-icon').src = '/icons/menu.svg';
+      }
+    });
+  </script>
 </body>
 </html>
-
-<script>
-  const btn = document.getElementById('theme-toggle');
-  const root = document.documentElement;
-  const hamburger = document.getElementById('hamburger');
-  const nav = document.getElementById('main-nav');
-
-  // Theme
-  const saved = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const isDark = saved ? saved === 'dark' : prefersDark;
-  if (!isDark) root.setAttribute('data-theme', 'light');
-  btn.textContent = isDark ? '🌙' : '☀️';
-
-  btn.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme') !== 'light';
-    root.setAttribute('data-theme', current ? 'light' : 'dark');
-    localStorage.setItem('theme', current ? 'light' : 'dark');
-    document.getElementById('theme-icon').src = current ? '/icons/sun.svg' : '/icons/moon.svg';
-  });
-
-  document.getElementById('theme-icon').src = isDark ? '/icons/moon.svg' : '/icons/sun.svg';
-
-  // Hamburger
-  hamburger.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    hamburger.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', open);
-    document.getElementById('hamburger-icon').src = open ? '/icons/x.svg' : '/icons/menu.svg';
-  });
-
-  // Klick außerhalb schließt Menü
-  document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
-      nav.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', false);
-    }
-  });
-</script>

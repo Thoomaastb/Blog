@@ -7,5 +7,13 @@ permalinks:
   blog: "/:slug/"
 
 params:
-  description: "Blog von Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web"
+  description: "Blog von Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web."
   author: "Thomas Buß"
+  hero_title: "Klar. Modern. Funktional."
+  nav_categories:
+    - name: "Cybersecurity"
+      url: "/categories/cybersecurity/"
+    - name: "Data Protection"
+      url: "/categories/data-protection/"
+    - name: "Webdesign"
+      url: "/categories/webdesign/"

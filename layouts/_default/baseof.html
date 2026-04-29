@@ -16,12 +16,21 @@
 </head>
 <body>
     <header>
-    <a href="/">{{ .Site.Params.logo | default .Site.Title }}</a>
-    <nav>
-        <a href="/blog/">Blog</a>
-        <a href="https://thomasbuss.net" target="_blank">thomasbuss.net</a>
-        <button id="theme-toggle" aria-label="Theme wechseln">🌙</button>
-    </nav>
+        <a href="/" class="logo">
+            <img src="https://thomasbuss.net/wp-content/uploads/2024/07/LogoText_farbig_private-scaled.webp"
+                alt="Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web"
+                onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+            <span class="logo-fallback">Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web</span>
+        </a>
+        <nav id="main-nav">
+            {{ range .Site.Params.nav_categories }}
+            <a href="{{ .url }}">{{ .name }}</a>
+            {{ end }}
+            <button id="theme-toggle" aria-label="Theme wechseln">🌙</button>
+        </nav>
+        <button id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
     </header>
     <main>
         {{ block "main" . }}{{ end }}
@@ -31,3 +40,40 @@
     </footer>
 </body>
 </html>
+
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const root = document.documentElement;
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('main-nav');
+
+  // Theme
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDark = saved ? saved === 'dark' : prefersDark;
+  if (!isDark) root.setAttribute('data-theme', 'light');
+  btn.textContent = isDark ? '🌙' : '☀️';
+
+  btn.addEventListener('click', () => {
+    const current = root.getAttribute('data-theme') !== 'light';
+    root.setAttribute('data-theme', current ? 'light' : 'dark');
+    localStorage.setItem('theme', current ? 'light' : 'dark');
+    btn.textContent = current ? '☀️' : '🌙';
+  });
+
+  // Hamburger
+  hamburger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  // Klick außerhalb schließt Menü
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+      nav.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    }
+  });
+</script>

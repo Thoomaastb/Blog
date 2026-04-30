@@ -756,3 +756,53 @@ footer a:hover { color: var(--text); }
   .home-grid { grid-template-columns: 1fr; }
   .post-list { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   TOC SIDEBAR – RELATED POSTS
+   ============================================================ */
+.toc-related { margin-top: 0.5rem; }
+
+.toc-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  transition: border-color .2s;
+}
+
+.toc-card:hover { border-color: var(--muted); }
+
+.toc-card-thumb {
+  height: 80px;
+  background-size: cover;
+  background-position: center;
+}
+
+.toc-card-thumb--fallback {
+  background: var(--border);
+}
+
+.toc-card-body {
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.toc-card-cat {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+
+.toc-card-title {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  color: var(--text);
+}

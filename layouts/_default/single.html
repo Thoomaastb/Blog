@@ -23,6 +23,34 @@
   <aside class="toc">
     <div class="toc-title">Inhaltsverzeichnis</div>
     {{ .TableOfContents }}
+
+    {{ $related := where .Site.RegularPages "Section" "posts" }}
+    {{ $related = where $related "Permalink" "ne" .Permalink }}
+    {{ $cat := index .Params.categories 0 }}
+    {{ $catPosts := where $related ".Params.categories" "intersect" (slice $cat) }}
+    {{ $showPosts := $catPosts }}
+    {{ if lt (len $catPosts) 2 }}
+      {{ $showPosts = $related }}
+    {{ end }}
+
+    {{ if $showPosts }}
+    <div class="toc-related">
+      <div class="toc-title" style="margin-top: 1.5rem">Weitere Artikel</div>
+      {{ range first 3 $showPosts }}
+      <a href="{{ .Permalink }}" class="toc-card">
+        {{ with .Params.header }}
+        <div class="toc-card-thumb" style="background-image: url('{{ $.Site.BaseURL }}posts/{{ $.File.Dir }}{{ . }}')"></div>
+        {{ else }}
+        <div class="toc-card-thumb toc-card-thumb--fallback"></div>
+        {{ end }}
+        <div class="toc-card-body">
+          {{ with .Params.categories }}<span class="toc-card-cat">{{ index . 0 }}</span>{{ end }}
+          <span class="toc-card-title">{{ .Title }}</span>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
   </aside>
   {{ end }}
 

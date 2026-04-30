@@ -1,7 +1,7 @@
 ---
 title: "Test-Post"
-date: 2026-04-40
-lastmod: 2026-04-40
+date: 2026-04-30
+lastmod: 2026-04-30
 slug: "test"
 description: "Das ist ein Test!"
 categories: ["Web"]

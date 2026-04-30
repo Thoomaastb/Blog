@@ -1,0 +1,30 @@
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+{{ with .Params.header }}
+<meta property="og:image" content="{{ $.Site.BaseURL }}posts/{{ $.File.Dir }}{{ . }}">
+{{ end }}
+{{ if .IsPage }}
+<meta property="article:published_time" content="{{ .Date.Format "2006-01-02" }}">
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02" }}">
+<meta name="author" content="{{ .Site.Params.author }}">
+{{ end }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{ if .IsPage }}BlogPosting{{ else }}WebSite{{ end }}",
+  "url": "{{ .Permalink }}",
+  "name": "{{ .Title }}",
+  "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Params.author }}",
+    "url": "https://thomasbuss.net"
+  }
+}
+</script>

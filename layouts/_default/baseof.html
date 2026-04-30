@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
+  <!--<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
@@ -11,7 +11,8 @@
   <meta property="og:url" content="{{ .Permalink }}">
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
   {{ with .Params.og_image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">-->
+  {{ partial "head.html" . }}
 </head>
 <body>
   <header>
@@ -38,12 +39,7 @@
 
   <main>{{ block "main" . }}{{ end }}</main>
 
-  <footer>
-    <div class="footer-inner">
-      <span>© {{ now.Year }} Thomas Buß</span>
-      <span><a href="https://thomasbuss.net/impressum">Impressum</a> · <a href="https://thomasbuss.net/datenschutz">Datenschutz</a></span>
-    </div>
-  </footer>
+  <footer>{{ partial "footer.html" . }}</footer>
 
   <script>
     const btn = document.getElementById('theme-toggle');

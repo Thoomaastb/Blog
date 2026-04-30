@@ -1,0 +1,46 @@
+{{ define "main" }}
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+
+<!-- INTRO -->
+<div class="wrap">
+  <div class="posts-header">
+    <h1>Alle Beiträge</h1>
+    <p>Ich schreibe über Cybersecurity, Datenschutz, Webdesign und Self-Hosting – praxisnah und ohne Bullshit.</p>
+  </div>
+
+  <!-- FILTER PILLS -->
+  <div class="posts-filter">
+    <a href="/posts/" class="pill active">Alle</a>
+    {{ range .Site.Params.nav_categories }}
+    <a href="{{ .url }}" class="pill">{{ .name }}</a>
+    {{ end }}
+  </div>
+
+  <!-- GRID -->
+  <div class="home-grid posts-grid">
+    {{ range $posts }}
+    {{ $cardImg := "/images/header.webp" }}
+    {{ with .Params.header }}
+      {{ $cardImg = printf "%sposts/%s%s" $.Site.BaseURL $.File.Dir . }}
+    {{ end }}
+    <a href="{{ .Permalink }}" class="post-card">
+      <div class="post-card-thumb" style="background-image: url('{{ $cardImg }}')"></div>
+      <div class="post-card-body">
+        {{ with .Params.categories }}
+        <span class="post-card-cat">{{ index . 0 }}</span>
+        {{ end }}
+        <h2>{{ .Title }}</h2>
+        {{ with .Description }}
+        <p class="post-card-excerpt">{{ . }}</p>
+        {{ end }}
+        <div class="post-card-meta">
+          <span>{{ .Date.Format "02.01.2006" }}</span>
+          {{ with .ReadingTime }}<span>{{ . }} Min. Lesezeit</span>{{ end }}
+        </div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+
+{{ end }}

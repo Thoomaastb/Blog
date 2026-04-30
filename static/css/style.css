@@ -806,3 +806,45 @@ footer a:hover { color: var(--text); }
   line-height: 1.35;
   color: var(--text);
 }
+
+/* ============================================================
+   POSTS ÜBERSICHTSSEITE
+   ============================================================ */
+.posts-header {
+  padding: 3rem 0 1.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+}
+
+.posts-header h1 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+
+.posts-header p {
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 560px;
+}
+
+.posts-filter {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.posts-filter .pill {
+  border: 1px solid var(--border);
+}
+
+.posts-filter .pill.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.posts-grid {
+  margin-bottom: 4rem;
+}

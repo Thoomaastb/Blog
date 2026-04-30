@@ -19,25 +19,26 @@
   <!-- GRID -->
   <div class="home-grid posts-grid">
     {{ range $posts }}
+    {{ $post := . }}
     {{ $cardImg := "/images/header.webp" }}
-    {{ with .Params.header }}
-      {{ $cardImg = printf "%sposts/%s%s" $.Site.BaseURL $.File.Dir . }}
+    {{ with $post.Params.header }}
+    {{ $cardImg = printf "%sposts/%s%s" $.Site.BaseURL $post.File.Dir . }}
     {{ end }}
-    <a href="{{ .Permalink }}" class="post-card">
-      <div class="post-card-thumb" style="background-image: url('{{ $cardImg }}')"></div>
-      <div class="post-card-body">
-        {{ with .Params.categories }}
+    <a href="{{ $post.Permalink }}" class="post-card">
+    <div class="post-card-thumb" style="background-image: url('{{ $cardImg }}')"></div>
+    <div class="post-card-body">
+        {{ with $post.Params.categories }}
         <span class="post-card-cat">{{ index . 0 }}</span>
         {{ end }}
-        <h2>{{ .Title }}</h2>
-        {{ with .Description }}
+        <h2>{{ $post.Title }}</h2>
+        {{ with $post.Description }}
         <p class="post-card-excerpt">{{ . }}</p>
         {{ end }}
         <div class="post-card-meta">
-          <span>{{ .Date.Format "02.01.2006" }}</span>
-          {{ with .ReadingTime }}<span>{{ . }} Min. Lesezeit</span>{{ end }}
+        <span>{{ $post.Date.Format "02.01.2006" }}</span>
+        {{ with $post.ReadingTime }}<span>{{ . }} Min. Lesezeit</span>{{ end }}
         </div>
-      </div>
+    </div>
     </a>
     {{ end }}
   </div>

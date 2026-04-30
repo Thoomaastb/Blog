@@ -1,0 +1,60 @@
+{{ define "main" }}
+{{ $posts := where .Site.RegularPages "Section" "posts" }}
+
+<!-- HERO -->
+<section class="home-hero">
+  <div class="home-hero-inner">
+    <p class="home-eyebrow">blog.bussonline.de</p>
+    <h1>{{ .Site.Params.hero_title }}</h1>
+    <p class="home-hero-sub">{{ .Site.Params.description }}</p>
+    <div class="home-hero-tags">
+      {{ range .Site.Params.nav_categories }}
+      <a href="{{ .url }}" class="pill">{{ .name }}</a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="home-intro wrap">
+  <p>{{ .Site.Params.intro }}</p>
+</section>
+
+<!-- LATEST POSTS -->
+<section class="home-posts wrap">
+  <div class="section-label">Neueste Beiträge</div>
+  <div class="home-grid">
+    {{ range first 6 $posts }}
+    {{ $cat := "" }}
+    {{ with .Params.categories }}{{ $cat = index . 0 | urlize }}{{ end }}
+    {{ $slug := .File.Dir }}
+    <a href="{{ .Permalink }}" class="post-card">
+      {{ with .Params.header }}
+      <div class="post-card-thumb"
+           style="background-image: url('{{ $.Site.BaseURL }}posts/{{ $slug }}{{ . }}')">
+      </div>
+      {{ else }}
+      <div class="post-card-thumb post-card-thumb--color cat-{{ $cat }}"></div>
+      {{ end }}
+      <div class="post-card-body">
+        {{ with .Params.categories }}
+        <span class="post-card-cat">{{ index . 0 }}</span>
+        {{ end }}
+        <h2>{{ .Title }}</h2>
+        {{ with .Description }}
+        <p class="post-card-excerpt">{{ . }}</p>
+        {{ end }}
+        <div class="post-card-meta">
+          <span>{{ .Date.Format "02.01.2006" }}</span>
+          {{ with .ReadingTime }}<span>{{ . }} Min. Lesezeit</span>{{ end }}
+        </div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+  <div class="home-more">
+    <a href="/posts/" class="btn-all">Alle Beiträge ansehen</a>
+  </div>
+</section>
+
+{{ end }}

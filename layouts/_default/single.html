@@ -35,11 +35,5 @@
     {{ end }}
   </article>
 
-  {{ with .Params.tags }}
-  <div class="tags tags-bottom">
-    {{ range . }}<a href="/tags/{{ . | urlize }}" class="tag">#{{ . }}</a>{{ end }}
-  </div>
-  {{ end }}
-
 </div>
 {{ end }}

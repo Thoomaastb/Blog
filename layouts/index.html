@@ -2,18 +2,18 @@
 {{ $posts := where .Site.RegularPages "Section" "posts" }}
 
 <!-- HERO -->
-<section class="home-hero" style="background-image: url('/images/header.webp')">
-  <div class="home-hero-inner">
-    <p class="home-eyebrow">blog.bussonline.de</p>
+<div class="post-hero" style="background-image: url('/images/header.webp')">
+  <div class="post-hero-content">
+    <p class="home-eyebrow">{{ .Site.Params.eyebrow | default "blog.thomasbuss.net" }}</p>
     <h1>{{ .Site.Params.hero_title }}</h1>
-    <p class="home-hero-sub">{{ .Site.Params.description }}</p>
+    <p class="post-hero-desc">{{ .Site.Params.description }}</p>
     <div class="home-hero-tags">
       {{ range .Site.Params.nav_categories }}
       <a href="{{ .url }}" class="pill">{{ .name }}</a>
       {{ end }}
     </div>
   </div>
-</section>
+</div>
 
 <!-- INTRO -->
 <section class="home-intro wrap">

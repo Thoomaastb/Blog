@@ -1,47 +1,21 @@
 {{ define "main" }}
 
+{{ $heroImg := "/images/header.webp" }}
 {{ with .Params.header }}
-<div class="post-hero" style="background-image: url('{{ . }}')">
+  {{ $heroImg = printf "%sposts/%s%s" $.Site.BaseURL $.File.Dir . }}
+{{ end }}
+
+<div class="post-hero" style="background-image: url('{{ $heroImg }}')">
   <div class="post-hero-content">
     <div class="post-hero-meta">
-      {{ $.Date.Format "02.01.2006" }}
-      {{ with $.Params.categories }} · {{ index . 0 }}{{ end }}
-      {{ with $.ReadingTime }} · {{ . }} Min. Lesezeit{{ end }}
-    </div>
-    <h1>{{ $.Title }}</h1>
-    {{ with $.Params.description }}<p class="post-hero-desc">{{ . }}</p>{{ end }}
-  </div>
-</div>
-{{ else }}
-<div class="post-header">
-  <div class="wrap">
-    <div class="breadcrumb">
-      <a href="/">Blog</a> <span>›</span>
-      {{ with .Params.categories }}<a href="/categories/{{ index . 0 | urlize }}/">{{ index . 0 }}</a> <span>›</span>{{ end }}
-      <span>{{ .Title }}</span>
+      {{ .Date.Format "02.01.2006" }}
+      {{ with .Params.categories }} · {{ index . 0 }}{{ end }}
+      {{ with .ReadingTime }} · {{ . }} Min. Lesezeit{{ end }}
     </div>
     <h1>{{ .Title }}</h1>
-    <div class="post-meta-row">
-      <div class="post-author">
-        {{ with .Site.Params.author_image }}
-        <img src="{{ . }}" alt="{{ $.Site.Params.author }}" class="author-avatar">
-        {{ end }}
-        <span>{{ .Site.Params.author }}</span>
-      </div>
-      <div class="post-meta-details">
-        <span>{{ .Date.Format "02.01.2006" }}</span>
-        {{ with .ReadingTime }}<span>{{ . }} Min. Lesezeit</span>{{ end }}
-      </div>
-    </div>
-    {{ with .Description }}<p class="post-description">{{ . }}</p>{{ end }}
-    {{ with .Params.tags }}
-    <div class="tags tags-top">
-      {{ range . }}<a href="/tags/{{ . | urlize }}" class="tag">#{{ . }}</a>{{ end }}
-    </div>
-    {{ end }}
+    {{ with .Params.description }}<p class="post-hero-desc">{{ . }}</p>{{ end }}
   </div>
 </div>
-{{ end }}
 
 <div class="wrap post-body">
 

@@ -9,6 +9,7 @@ permalinks:
 params:
   description: "Blog von Thomas Buß – Cybersecurity, Data Protection und die Liebe fürs Web."
   author: "Thomas Buß"
+  author_image: "https://thomasbuss.net/wp-content/uploads/2024/07/Thomas-Buss.webp"
   hero_title: "Klar. Modern. Funktional."
   nav_categories:
     - name: "Cybersecurity"

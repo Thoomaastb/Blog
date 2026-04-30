@@ -8,6 +8,7 @@ tags: []
 categories: []
 og_image: "titelbild.jpg"
 header: "header.webp"
+toc: true
 draft: true
 ---
 

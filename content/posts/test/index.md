@@ -6,7 +6,6 @@ slug: "test"
 description: "Das ist ein Test!"
 categories: ["Web"]
 tags: ["Webdesign", "Consulting", "Website-Administration", "Tipps für Selbstständige"]
-header: "header.webp"
 toc: true
 draft: false
 ---

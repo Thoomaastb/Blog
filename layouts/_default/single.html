@@ -28,6 +28,11 @@
 
   <article class="content">
     {{ .Content }}
+    {{ with .Params.tags }}
+    <div class="tags tags-bottom">
+      {{ range . }}<a href="/tags/{{ . | urlize }}" class="tag">#{{ . }}</a>{{ end }}
+    </div>
+    {{ end }}
   </article>
 
   {{ with .Params.tags }}

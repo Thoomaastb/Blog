@@ -402,7 +402,8 @@ nav a:hover { color: var(--text); }
    POST BODY LAYOUT (TOC + Content)
    ============================================================ */
 .post-body {
-  display: flex;
+  display: grid;
+  grid-template-columns: 240px 1fr;
   gap: 3rem;
   align-items: flex-start;
   padding-top: 2.5rem;
